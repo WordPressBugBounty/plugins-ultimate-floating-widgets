@@ -19,11 +19,13 @@ class UFW_Display{
         wp_enqueue_style( 'ufw-anim', UFW_URL . 'public/css/animate.min.css' );
         wp_enqueue_script( 'ufw-script', UFW_URL . 'public/js/script.js', array( 'jquery' ), UFW_VERSION );
         
-        wp_enqueue_style( 'ufw-fontawesome', 'https://use.fontawesome.com/releases/v5.15.4/css/all.css' );
+        wp_enqueue_style( 'ufw-fontawesome', 'https://use.fontawesome.com/releases/v6.7.2/css/all.css' );
         
     }
 
     public static function add_widget_box(){
+        
+        wp_reset_query();
         
         $widget_boxes = Ultimate_Floating_Widgets::list_all();
         
@@ -90,6 +92,10 @@ class UFW_Display{
             $wrap_attrs[ 'data-auto-trigger' ] = $auto_trigger;
         }
         
+        if( $trigger != 'button' && $auto_trigger != '' && $auto_trigger_device != 'all' ){
+            $wrap_attrs[ 'data-auto-trigger-device' ] = $auto_trigger_device;
+        }
+
         if( $auto_close != '' ){
             $wrap_attrs['data-auto-close'] = $auto_close;
         }
@@ -98,7 +104,7 @@ class UFW_Display{
             $wrap_attrs['data-auto-close-time'] = $auto_close_time;
         }
 
-        if( $trigger != 'auto' && intval( $btn_reveal ) > 0 ){
+        if( $trigger != 'auto' && !empty( $btn_reveal ) ){
             $wrap_attrs[ 'data-btn-reveal' ] = $btn_reveal;
         }
 
@@ -187,7 +193,7 @@ class UFW_Display{
             echo '<div class="ufw_btn_oinfo" title="' . esc_attr( strip_tags( $btn_text ) ) . '">';
                 if( $do_icon ){
                     $btn_icon = trim( $btn_icon );
-                    if( substr( $btn_icon, 0, 4 ) == 'http' ){
+                    if( strpos( $btn_icon, '/' ) !== false ){
                         echo '<span class="ufw_b_image"><img src="' . esc_url( $btn_icon ) . '" alt="Open" /></span>';
                     }else{
                         if( strpos( $btn_icon, ' ' ) === false ){
@@ -196,7 +202,7 @@ class UFW_Display{
                         echo '<i class="' . esc_attr( $btn_icon ) . '"></i>';
                     }
                 }
-                if( $do_text ){
+                if( $do_text && !empty( $btn_text ) ){
                     echo '<div class="ufw_b_text">' . wp_kses_post( $btn_text ) . '</div>';
                 }
             echo '</div>';
@@ -204,7 +210,7 @@ class UFW_Display{
             echo '<div class="ufw_btn_cinfo" title="' . esc_attr( strip_tags( $btn_close_text ) ) . '">';
                 if( $do_icon ){
                     $btn_close_icon = trim( $btn_close_icon );
-                    if( substr( $btn_close_icon, 0, 4 ) == 'http' ){
+                    if( strpos( $btn_close_icon, '/' ) !== false ){
                         echo '<span class="ufw_b_image"><img src="' . esc_url( $btn_close_icon ) . '" alt="Close" /></span>';
                     }else{
                         if( strpos( $btn_close_icon, ' ' ) === false ){
@@ -213,7 +219,7 @@ class UFW_Display{
                         echo '<i class="' . esc_attr( $btn_close_icon ) . '"></i>';
                     }
                 }
-                if( $do_text ){
+                if( $do_text && !empty( $btn_close_text ) ){
                     echo '<div class="ufw_b_text">' . wp_kses_post( $btn_close_text ) . '</div>';
                 }
             echo '</div>';

@@ -9,6 +9,7 @@ $(document).ready(function(){
             
             var id = $(this).attr('id');
             var auto_trigger = $(this).attr('data-auto-trigger');
+            var auto_trigger_device = $(this).attr('data-auto-trigger-device');
             var auto_close = $(this).attr('data-auto-close');
             var auto_close_time = $(this).attr('data-auto-close-time');
             var btn_reveal = $(this).attr('data-btn-reveal');
@@ -23,7 +24,8 @@ $(document).ready(function(){
                 'close_time': (typeof auto_close_time !== 'undefined') ? auto_close_time : false,
                 'close_timeout': false,
                 'btn_reveal': (typeof btn_reveal !== 'undefined') ? btn_reveal : false,
-                'btn_status': 'hidden'
+                'btn_status': 'hidden',
+                'auto_trigger_device': (typeof auto_trigger_device !== 'undefined') ? auto_trigger_device : 'all',
             };
 
             var hidden = init_display($(this), auto_trigger, devices);
@@ -199,6 +201,7 @@ $(document).ready(function(){
                 var cur_status = window.ufw_wrap_auto[id]['status'];
                 var btn_reveal = window.ufw_wrap_auto[id]['btn_reveal'];
                 var btn_status = window.ufw_wrap_auto[id]['btn_status'];
+                var auto_trigger_device = window.ufw_wrap_auto[id]['auto_trigger_device'];
                 
                 var $wrap = $('#'+id);
                 var $btn = $wrap.find('.ufw_btn');
@@ -206,7 +209,12 @@ $(document).ready(function(){
                 if(open_at !== false){
                     if(at > open_at && cur_status == 'closed'){
                         if(close_at === false || (close_at !== false && at < close_at)){
-                            open_close_wb($wrap, 'open');
+                            if(auto_trigger_device == 'all' 
+                                || (auto_trigger_device == 'desktop' && !is_mobile()) 
+                                || (auto_trigger_device == 'mobile' && is_mobile())
+                            ){
+                                open_close_wb($wrap, 'open');
+                            }
                         }
                     }
                     else if(at < open_at && cur_status == 'opened'){
@@ -221,11 +229,16 @@ $(document).ready(function(){
                 }
 
                 if(btn_reveal !== false){
-                    if(scrolled < btn_reveal && btn_status == 'visible' && cur_status != 'opened'){
+                    if(!btn_reveal.includes('-')){
+                        btn_reveal = btn_reveal + '-101';
+                    }
+                    var br_split = btn_reveal.split('-');
+
+                    if((at >= br_split[0] && at <= br_split[1]) && btn_status == 'hidden'){
+                        show_hide_btn($btn, 'show');
+                    }else if((at <= br_split[0] || at >= br_split[1]) && btn_status == 'visible' && cur_status != 'opened'){
                         show_hide_btn($btn, 'hide');
                         open_close_wb($wrap, 'close');
-                    }else if(scrolled > btn_reveal && btn_status == 'hidden'){
-                        show_hide_btn($btn, 'show');
                     }
                 }
                 
@@ -449,7 +462,7 @@ $(document).ready(function(){
 
     $(window).scroll(function(){
         
-        var at = (($(window).scrollTop() + $(window).height())/$(document).height())*100;
+        var at = ($(window).scrollTop() / ($(document).height() - $(window).height())) * 100;
         var scrolled = $(window).scrollTop();
         
         on_scroll(at, scrolled);

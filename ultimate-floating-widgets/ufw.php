@@ -2,13 +2,13 @@
 /*
 Plugin Name: Ultimate floating widgets
 Plugin URI: https://www.aakashweb.com/wordpress-plugins/ultimate-floating-widgets/
-Version: 2.9
+Version: 3.0
 Author: Aakash Chakravarthy
 Author URI: https://www.aakashweb.com/
 Description: Add WordPress widgets to sticky/floating popup bubble and flyout sidebars.
 */
 
-define( 'UFW_VERSION', '2.9' );
+define( 'UFW_VERSION', '3.0' );
 define( 'UFW_PATH', plugin_dir_path( __FILE__ ) ); // All have trailing slash
 define( 'UFW_URL', plugin_dir_url( __FILE__ ) );
 define( 'UFW_ADMIN_URL', trailingslashit( plugin_dir_url( __FILE__ ) . 'admin' ) );
@@ -56,6 +56,7 @@ class Ultimate_Floating_Widgets{
             'fo_position' => 'left',
             'trigger' => 'button',
             'auto_trigger' => '60',
+            'auto_trigger_device' => 'all',
             
             'pp_anim_open' => 'fadeInRight',
             'pp_anim_close' => 'fadeOutRight',

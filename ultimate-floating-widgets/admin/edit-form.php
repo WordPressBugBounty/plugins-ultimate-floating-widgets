@@ -182,6 +182,16 @@ class UFW_Admin_Edit_Form{
                 'tooltip' => 'Enter percentage to open/close widget box when page is scrolled. Example: 60%. Widget box will open automatically at 60% scroll.'
             )), 'data-conditioner data-condr-input="[name=ufw_trigger]" data-condr-value="auto" data-condr-action="pattern?show:hide" data-condr-events="change"'),
             
+            array( 'Auto trigger on device', $opts->field( 'select', array(
+                'name' => 'ufw_auto_trigger_device',
+                'list' => array(
+                    'all' => 'All',
+                    'desktop' => 'Desktop',
+                    'mobile' => 'Mobile',
+                ),
+                'value' => $values['auto_trigger_device']
+            ))),
+
             array( 'Flyout button position', $opts->field( 'select', array(
                 'name' => 'ufw_fo_btn_position',
                 'list' => array(
@@ -404,7 +414,7 @@ class UFW_Admin_Edit_Form{
             array( 'Dedicated close button icon', $opts->field( 'text', array(
                 'name' => 'ufw_wb_close_icon',
                 'value' => $values['wb_close_icon'],
-                'helper' => '<strong>For icon font:</strong> Open <a href="https://fontawesome.com/v5/search?o=r&m=free" target="_blank">font awesome 5 page</a>, search for an icon and paste the icon code. Example: <code>fas fa-times</code>'
+                'helper' => '<strong>For icon font:</strong> Open <a href="https://fontawesome.com/v6/search?o=r&m=free" target="_blank">font awesome 6 page</a>, search for an icon and paste the icon code. Example: <code>fas fa-times</code>'
             )), 'data-conditioner data-condr-input="[name=ufw_wb_close_btn]" data-condr-value="yes" data-condr-action="simple?show:hide" data-condr-events="change"'),
 
         ));
@@ -537,7 +547,7 @@ class UFW_Admin_Edit_Form{
             array( 'Open icon', $opts->field( 'text', array(
                 'name' => 'ufw_btn_icon',
                 'value' => $values['btn_icon'],
-                'helper' => '<strong>For icon font:</strong> Open <a href="https://fontawesome.com/v5/search?o=r&m=free" target="_blank">font awesome 5 page</a>, search for an icon and paste the icon code. Example: <code>fab fa-whatsapp</code><br/>
+                'helper' => '<strong>For icon font:</strong> Open <a href="https://fontawesome.com/v6/search?o=r&m=free" target="_blank">font awesome 6 page</a>, search for an icon and paste the icon code. Example: <code>fab fa-whatsapp</code><br/>
                 <strong>For custom image:</strong> Enter the URL of the icon. Example: <code>https://mywebsite.com/image/icon.png</code>'
             )), 'data-conditioner data-condr-input="[name=ufw_btn_type]" data-condr-value="icon" data-condr-action="pattern?show:hide" data-condr-events="change"'),
             
@@ -552,7 +562,7 @@ class UFW_Admin_Edit_Form{
             array( 'Close icon', $opts->field( 'text', array(
                 'name' => 'ufw_btn_close_icon',
                 'value' => $values['btn_close_icon'],
-                'helper' => '<strong>For icon font:</strong> Open <a href="https://fontawesome.com/v5/search?o=r&m=free" target="_blank">font awesome 5 page</a>, search for an icon and paste the icon code. Example: <code>fas fa-times</code><br/>
+                'helper' => '<strong>For icon font:</strong> Open <a href="https://fontawesome.com/v6/search?o=r&m=free" target="_blank">font awesome 6 page</a>, search for an icon and paste the icon code. Example: <code>fas fa-times</code><br/>
                 <strong>For custom image:</strong> Enter the URL of the icon. Example: <code>https://mywebsite.com/image/close.png</code>'
             )), 'data-conditioner data-condr-input="[name=ufw_btn_type]" data-condr-value="icon" data-condr-action="pattern?show:hide" data-condr-events="change"'),
             
@@ -604,13 +614,12 @@ class UFW_Admin_Edit_Form{
             
             array( '<h3>Display condition</h3>', '<hr/>' ),
 
-            array( 'Reveal button when page is scrolled', $opts->field( 'text', array(
+            array( 'Reveal/Hide button when page is scrolled', $opts->field( 'text', array(
                 'name' => 'ufw_btn_reveal',
                 'value' => $values['btn_reveal'],
                 'class' => 'small-box',
-                'type' => 'number',
-                'unit' => 'px',
-                'tooltip' => 'Enter pixels to be scrolled in the page to reveal the button. Leave empty to show always. Example: 200px'
+                'unit' => '%',
+                'tooltip' => 'Enter % to be scrolled in the page to reveal the button. Leave empty to show always. Example: 20 or a range 10-70'
             ))),
 
             array( self::pro_link( 'btn-reveal-time', 'Reveal button in' ), $opts->field( 'text', array(

@@ -7,8 +7,8 @@ Donate link: https://www.paypal.me/vaakash/
 License: GPLv2 or later
 Requires PHP: 5.3
 Requires at least: 4.6
-Tested up to: 6.6.1
-Stable tag: 2.9
+Tested up to: 6.7.1
+Stable tag: 3.0
 
 Create sticky / fixed / popup bubble and flyout sidebars and add your widgets to it.
 
@@ -133,6 +133,16 @@ Please visit the [plugin documentation page](https://www.aakashweb.com/docs/ulti
 
 
 ## Changelog
+
+### 3.0
+* New: Option to auto trigger only on specific device.
+* New: Option to auto hide button on scroll.
+* Fix: Page scroll position calculation.
+* Fix: Adjust margin when button open/close text is empty.
+* Fix: Support for relative image paths.
+* Fix: `wp_reset_query` is called before checking location rules.
+* Fix: Auto reveal button on scroll is now based on percentage instead of pixels.
+* Fix: Upgrade to Font Awesome v6.
 
 ### 2.9
 * New: Option to set image as icon for the close button.

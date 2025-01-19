@@ -284,6 +284,7 @@ class UFW_Admin{
                 'fo_position' => sanitize_text_field( $p[ 'ufw_fo_position' ] ),
                 'trigger' => sanitize_text_field( $p[ 'ufw_trigger' ] ),
                 'auto_trigger' => sanitize_text_field( $p[ 'ufw_auto_trigger' ] ),
+                'auto_trigger_device' => sanitize_text_field( $p[ 'ufw_auto_trigger_device' ] ),
                 
                 'pp_anim_open' => sanitize_text_field( $p[ 'ufw_pp_anim_open' ] ),
                 'pp_anim_close' => sanitize_text_field( $p[ 'ufw_pp_anim_close' ] ),
